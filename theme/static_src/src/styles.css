@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
 
@@ -9,3 +10,11 @@
   * the scope of this path.
   */
 @source "../../../**/*.{html,py,js}";
+
+@theme {
+    --font-inter: "inter", sans-serif;
+    --color-eptdark : #0f1117;
+    --color-cardsdark : #151721;
+    --color-bordercard : #756d60;
+    --color-bgicon: #3e3c26;
+}
