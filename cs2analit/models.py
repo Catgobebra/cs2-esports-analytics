@@ -1,6 +1,5 @@
-from django.db import models
 from __future__ import annotations
-
+from django.db import models
 
 class Team(models.Model):
     name: str = models.CharField(max_length=100, unique=True)
@@ -25,7 +24,6 @@ class DailyStats(models.Model):
     def __str__(self) -> str:
         return f"{self.team.name} — {self.parse_date} (#{self.rank})"
 
-
 class MapStats(models.Model):
     daily_stats: DailyStats = models.ForeignKey(DailyStats, on_delete=models.CASCADE, related_name='map_stats')
     map_name: str = models.CharField(max_length=50)
@@ -35,3 +33,4 @@ class MapStats(models.Model):
 
     def __str__(self) -> str:
         return f"{self.map_name} — {self.win_rate}%"
+
