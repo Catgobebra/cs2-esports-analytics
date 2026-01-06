@@ -1,26 +1,30 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Max
 from .models import Team, DailyStats
+from .forms import TeamComparisonForm
+from cs2analit.ml.predictor import predict_win_probability
 import json
 
 def index(request):
-    team1_name = request.GET.get('team1')
-    team2_name = request.GET.get('team2')
-
     all_teams = Team.objects.all().order_by('name')
     latest_date = DailyStats.objects.aggregate(max_date=Max('parse_date'))['max_date']
+
+    form = TeamComparisonForm(request.GET or None)
 
     context = {
         'all_teams': all_teams,
         'latest_date': latest_date or 'Нет данных',
+        'form': form,
     }
 
-    if team1_name and team2_name and team1_name != team2_name:
-        team1 = get_object_or_404(Team, name=team1_name)
-        team2 = get_object_or_404(Team, name=team2_name)
+    if request.GET and form.is_valid():
+        team1 = form.cleaned_data['team1']
+        team2 = form.cleaned_data['team2']
 
         stat1 = DailyStats.objects.filter(team=team1, parse_date=latest_date).first()
         stat2 = DailyStats.objects.filter(team=team2, parse_date=latest_date).first()
+
+        win_prob_team1, win_prob_team2 = predict_win_probability(stat1, stat2)
 
         if stat1 and stat2:
             map_stats_team1 = stat1.map_stats.all().order_by('map_name')
@@ -45,6 +49,9 @@ def index(request):
                 'team2': stat2,
                 'teams_to_display': [stat1, stat2],
 
+                'win_prob_team1': win_prob_team1,
+                'win_prob_team2': win_prob_team2,
+
                 'recent_matches_team1': map_stats_team1,
                 'recent_matches_team2': map_stats_team2,
 
@@ -65,7 +72,8 @@ def index(request):
         else:
             context['error'] = "Нет свежих данных"
 
-    elif team1_name or team2_name:
-        context['error'] = "Выберите обе команды"
+    else:
+        if request.GET:
+            context['error'] = "Выберите две разные команды"
 
     return render(request, 'index.html', context)
