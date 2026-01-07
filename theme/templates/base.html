@@ -7,11 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% tailwind_css %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script>
 </head>
 
 <body class="bg-eptdark text-black font-serif leading-normal tracking-normal min-h-screen w-auto">
-
     {% block content %}
     {% endblock %}
+     <div id="loader" class="h-screen w-full bg-black top-0 opacity-80 fixed
+    flex justify-center items-center htmx-indicator"><span class="loading loading-spinner loading-xl text-warning z-5"></span></div>
+    <script src="{% static 'js/charts.js' %}"></script>
 </body>
 </html>

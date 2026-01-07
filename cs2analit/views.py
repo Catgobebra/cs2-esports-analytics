@@ -15,6 +15,7 @@ def index(request):
         'all_teams': all_teams,
         'latest_date': latest_date or 'Нет данных',
         'form': form,
+        'show_analysis' : False
     }
 
     if request.GET and form.is_valid():
@@ -76,4 +77,6 @@ def index(request):
         if request.GET:
             context['error'] = "Выберите две разные команды"
 
+    if request.headers.get('HX-Request'):
+        return render(request, 'content_partial.html', context)
     return render(request, 'index.html', context)
