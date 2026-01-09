@@ -34,7 +34,7 @@
 ## Как запустить проект локально
 1. **Клонируйте репозиторий:**
    ```bash
-   git clone [https://github.com/ваш-юзернейм/ваш-репо.git](https://github.com/ваш-юзернейм/ваш-репо.git)
+   git clone https://github.com/Catgobebra/cs2-esports-analytics.git
    ```
 2. **Создайте и активируйте виртуальное окружение:**
    ```bash
