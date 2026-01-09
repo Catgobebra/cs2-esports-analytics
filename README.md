@@ -31,4 +31,31 @@
 <img width="1327" height="907" alt="image" src="https://github.com/user-attachments/assets/e93b82c3-e565-4368-8037-863eb8d7f438" />
 </kbd>
 
+## Как запустить проект локально
+1. **Клонируйте репозиторий:**
+   ```bash
+   git clone [https://github.com/ваш-юзернейм/ваш-репо.git](https://github.com/ваш-юзернейм/ваш-репо.git)
+   ```
+2. **Создайте и активируйте виртуальное окружение:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # для Linux/Mac
+   venv\Scripts\activate     # для Windows
+   ```
+3. **Установите зависимости:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Выполните миграции:**
+   ```bash
+   python manage.py migrate
+   ```
+5. **Запустите сервер:**
+   ```bash
+   python manage.py runserver
+   ```
+6. **Откройте проект в браузере:**
+   Перейдите по ссылке: http://127.0.0.1:8000/****
+   ~~Приложение будет работать, но юд будет пустая. Т.к. нужно каждый раз объединять с новыми данными~~
+
 ## Ссылка на рабочий проект: https://catgo.pythonanywhere.com
